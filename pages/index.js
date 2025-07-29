@@ -1,14 +1,13 @@
-// pages/index.tsx
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center">
-      <h1 className="text-4xl font-bold mb-6">Selamat Datang di Website Wedding</h1>
-      <p className="mb-4">Silakan login sebagai:</p>
-      <div className="space-x-4">
-        <Link href="/login" className="text-blue-500 underline">Login</Link>
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center">
+      <h1 className="text-3xl font-bold mb-4">Selamat datang di Wedding App!</h1>
+      <p className="mb-6">Silakan login untuk mengakses dashboard Anda</p>
+      <Link href="/login" className="text-blue-600 underline">
+        Go to Login Page
+      </Link>
     </div>
   );
 }
