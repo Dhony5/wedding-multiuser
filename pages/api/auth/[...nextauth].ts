@@ -9,7 +9,8 @@ const handler = NextAuth({
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
+
         const users = [
           { id: 1, email: "admin@example.com", role: "admin" },
           { id: 2, email: "pengantin@example.com", role: "couple" },
