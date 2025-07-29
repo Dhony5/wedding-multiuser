@@ -1,10 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import type { NextAuthOptions } from "next-auth";
-import type { User } from "next-auth";
-import type { NextApiRequest } from "next";
 
-const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -12,10 +9,7 @@ const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(
-        credentials: Record<"email" | "password", string> | undefined,
-        req: Pick<NextApiRequest, "body" | "query" | "headers" | "method">
-      ): Promise<User | null> {
+      async authorize(credentials, req) {
         const users = [
           { id: 1, email: "admin@example.com", role: "admin" },
           { id: 2, email: "pengantin@example.com", role: "couple" },
@@ -28,7 +22,7 @@ const authOptions: NextAuthOptions = {
             id: String(user.id),
             email: user.email,
             role: user.role,
-          } as User;
+          };
         }
         return null;
       },
@@ -45,14 +39,11 @@ const authOptions: NextAuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
-      if (user && "role" in user) {
-        token.role = user.role;
-      }
+      if (user) token.role = user.role;
       return token;
     },
   },
-};
+});
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+// ✅ HARUS ADA INI!
+export default handler;
